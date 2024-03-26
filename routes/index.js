@@ -9,22 +9,24 @@ const session = require('express-session');
 var globalAccessToken;
 const fetch = require('node-fetch')
 // const getUser = require("./getUser")
+
 const serviceAccount = {
+  
   "type": "service_account",
-  "project_id": "backup-app-97142",
-  "private_key_id": "423cdc55f255992bb2042dc9ce8f9100d64dc3a5",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCpqE0mVdgpaxwZ\n/LgWg8njkcrYD/5Bbi8nWxjv+/kb+4nY+zXHXA8izyEwSes9U45pouctwoaWrW6p\nx6ZYlKGlcaPhMKPxz4D76igXAHkGoUMEiRhocQmZPIM2pCYcJRVmUwbAKf8TWuqR\nq5fveiVob87HAk9OTEojh9R2Q/HAg24nt1qtojuERKnYRTByvp/ErtBGoIolVkRa\nkQlShWYn851xj2z0BkzCCCZi/4fTyRzh26TxvaWkQZAUHsUt8KZbxUVwkK9qWqd5\nkVXPNVieXt+m4rD2dgjIFYGt8UUqPcYCMCSv9BwZ+ngPUf3NOp5qgOCqHSBE3ZSb\nnim1accZAgMBAAECggEAF3YtzRpb/UZRqYpYTszE05Kq0XxMtfGt1ax0Y2OeDG+Z\nnYcH5dzmPvMT7OCcBmwSqqsbeymGgTnUrufsKh3LyNxRRGf8lAkVFkFIb/3hvrf4\nU5094duX7zf+EUVb+9JpBjB/I33rR1rwS1rGdRiYKbwkhULdgr9sFUPIbt5whSWt\n/WaNrX7kqNVTyZ+yWWyOUYXVN61zd7Aoj+FY02t1k0xPBVO2p2DHUl0zc9aGKDgk\nUEhXi6iWd0/zw2OxbmK+JDD4F3nvDZILAMFnZ6LO/v9b/zonFT5+AZMEwF2IZ2H6\nDJXesPhwb/I3x22XkZoHtI1y9bicbKYr8w5akPsbfQKBgQDgqtL1jZFSLBDPnWLm\nVzKZaHQp2KrEe/UE0ScSTMcs4J5vlRrFfmYWGGNyJnrzyBVnUuUcgFrjg9vRRBqa\nyuIcZcGDX9zVJc6MPR5ReGpUevCbDVqFC37anl0Te7zILCc1gD3PIn8BSpOVkjey\nRJMHaTZwpy6etFt8NGT2TpfBKwKBgQDBUX1nwDV1V862MEcaT41GZLLnWrSEoj54\nK5vxEae2FFnGO/cgUxicCT5mTXdxl4sE1cJPRYPNrqoScQJ50IIGXITWayXXZo26\nfy9OFw/6D08cq6l+cYt/LDSYBMa6YAI+Lkg5ghIA9Bqnk3awrglQmQccc+4/bnt3\n+9IjoWnOywKBgQDJUmoeHlDVqKUb1jX0oLi33XESupQz47wpJ97yOBjXLyTqaluG\nFAEY1Zvvg2n0IByF7TNfeel4LQWCnZuVkC5UMh7ZQcLawbk30+DiMpxdvZjz6GBw\nDmALOZPATMZbPa2Y9KTug0P5/UEI6/C671YtcuuUwUs2bfn47951FPJJ5wKBgQCR\nYDqyPvT0nWex0nRl8NUIzslK+gcuhuP7cq/+hYxdfMhWLtoU0Oh8zubCABeGsLO2\nmxlYi6omjucOnzWBba+aIRE0PbdjWJfUW7izPNyi68hOgzkfATwqEpAqkczwcyq8\noAloVcw8M1WoF1j2XKpclfenCfdsdCUdgZ3xdX0gKQKBgQCXvmuymlrTsQ6SJz5w\nomYLROnF6RLrkbtPnXTUdAB0tk99gry70vEbXL2jgEYtsOXqIY0s6heaZx1KXHWm\nK7fy3cbFb5v8qkBuxi9qICeY2PQW2cAwTA+WBJQWTS5mRF405QQYMlphPW5yyHTu\nhFLcTND1PUyK1RrpxbrjnLSfKA==\n-----END PRIVATE KEY-----\n",
-  "client_email": "firebase-adminsdk-ukire@backup-app-97142.iam.gserviceaccount.com",
-  "client_id": "100130433300040407495",
+  "project_id": "staging-syncwise",
+  "private_key_id": "7276f6af6ec766852e725404665f2227731ff2cc",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEuwIBADANBgkqhkiG9w0BAQEFAASCBKUwggShAgEAAoIBAQDl4peqQMtx3Q5P\nabN0X9+QVrmX6DMsR3bNIOT0rXulGrr0GDbj2Gek4yi8Hen0oZF6fP194UtfwQYV\nRk3URqwhpaIgtR9HFxQ5SPHB+NqBytoppRhEVDD+BNLLe73X6nF0HQJFN3z7Gl2o\ny2H1EpjjvfJpJpl2NgXvIo+Vr63qWPMOkhtOIVkkhtnagnEiTjpfFhxL9WT9ZekA\nOdaqp02qGDFMfKAdALW8PjrmkWAD/BCyaxghoj4w2I9Ucl6WzGHJ6JnjHWLQmzS0\nxW2bvx1issL1ng42OlVP78vpUrQCk+Xb6X5OHuQFROmxrRwmLfkSTJA8/h4iv1aA\nvQdCdHubAgMBAAECggEAAtoNwZnuLCpu3ANWq5Ho5xR8VusVf24fhinrTTG9v+2V\n9iM6wxbTKlN7FOJWHafHczqLtn0N/1EYrzjhDEoYJo60dS1qBuq9YHyMKzjYFRYc\nILogk/BrbytGJioRz9TjtWoKtisbDM5l7Qsg2vZxGRopIK7O5o2DA1VtbJDyWl7c\nFk0JcZ2Kkhn0oA1DZY6pWGeuPyboRNrMBCIdqCoTdZumBfKOueOSD48FZDCNCZux\nXcP9yk1sCbElUWYSmqQKh6pcASUZzuLjFmI/SSEOPc8qubKVShQELte0BTLBiAFJ\nX4wfyJrqUAHHmXoz5x1wekA5ic14xnOfk1dtToSuGQKBgQD+8Ww9MVD/OYVQOKBj\nbu81ahmCsxGS92Mathyf+6e0ePyCPt60gYFsHWJ7PuYrvAFxh9XkNCUqQmmYERNi\n3CKW09IFTkUYPjgeBtwQLfxIOywU3/SulhTCYQGMtW+mgB9uLaLhcXRi9EatS43H\nQBAgGJjiEQ924iBQhq2+YCz4hQKBgQDm1pM2Y6rSUNzISrIM0AHYOP5IuZbbOuP8\n6gh/VVdBH8Ftr0iwlWvH2RYEjErHSBBbUnXauSaxVkl93JibJncK+ZY2RcasMI3r\nxRuJFDoOgXQ/mnH1TTx6arcvfVM8gJ98xWuqLByEjfkBv+0lQGFcYRPJPjE6Axfu\nDoa8dpftnwJ/N8SX6Mrg7POoNeQtMZMSwJx0+CIztfJnu3Aa0uQ5y0Cr+9HE5bdu\nmDfVUyBvOSHnLu6H22OMvbHJZ3pUw0tkRZoQVxjIBIWXwPm/KcrlZOeMvQRAgfBS\nmjKeJCmMQt/EAFX7S1WGIB9PVpkwamWZIWxABTO2LktIxlSvrPVc4QKBgBSPNetZ\nMySqOQ/Jv1PuzstAQD2f8fSyqQ2kln8oza2qM2Megn3fwQq6pgBfsmVPYM2RaZfC\nd9TBl6gTFrBy25Vpp1xMGKbLaEiAdLRfzc/u7bige9faOjG5AXnEUr6HwiyttKoi\nZaPUtUHXozp3InTE3KtG08GT9vSn7I4qjduHAoGBAJ8UjZ6gYculGR9RnazmGdU/\nymempcSgujXX2EfvMEv5vIPOpG6tvE/bQqWNYPkEoRRxsnS2cXCtlmBO9AvD9Cu8\n8HmnuK4bo87cc/AKD/RAmslIP1oZcNLI0FCUY/ebjPHuMb142vBhezao27IqqzGn\nH+AqzM39hSsRcDqCjA1T\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-nkcvh@staging-syncwise.iam.gserviceaccount.com",
+  "client_id": "118153536721277167053",
   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
   "token_uri": "https://oauth2.googleapis.com/token",
   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-ukire%40backup-app-97142.iam.gserviceaccount.com",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-nkcvh%40staging-syncwise.iam.gserviceaccount.com",
   "universe_domain": "googleapis.com"
 }
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://backup-app-97142-default-rtdb.firebaseio.com'
+  databaseURL: 'https://staging-syncwise-default-rtdb.firebaseio.com'
 });
 const app = express();
 app.set('view engine', 'ejs');
@@ -33,6 +35,7 @@ router.use(session({
   resave: false,
   saveUninitialized: true
 }));
+
 const checkLoggedIn = (req, res, next) => {
   if (req.session.loggedIn) {
     // User is logged in, proceed to next middleware or route handler
@@ -69,63 +72,62 @@ const checkLoggedIn = (req, res, next) => {
 };
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
-router.get('/welcome',checkLoggedIn, (req, res) => res.render('welcome'));
+router.get('/welcome', checkLoggedIn,(req, res) => res.render('welcome'));
 router.get('/signup', (req, res) => res.render('signup'));
 router.post('/register', (req, res) => {
   
   const { name, email, password } = req.body;
-  console.log(name)
-  // Create a reference to the Firebase database
-  const db = admin.database();
-  const usersRef = db.ref('users');
-console.log(usersRef)
-  // Push the registration data to Firebase
-  usersRef.push({
-    name: name,
+  const userRecord =  admin.auth().createUser({
+    displayName: name,
     email: email,
-    password: password
+    password: password,
   })
-  .then(() => {
-    res.render('login', { message: 'Registration successful' });;
-  })
-  .catch(error => {
-    res.status(500).send('Error registering user: ' + error.message);
-  });
+    res.render('login', { message: 'Registration successful' });
 });
 router.get('/', (req, res) => res.render('login'));
-router.post('/login', (req, res) => {
+const sessionCookieDuration = 7 * 24 * 60 * 60 * 1000;
+
+router.post('/login', async (req, res) => {
   const { email, password } = req.body;
-  const db = admin.database();
-  const usersRef = db.ref('users');
-  usersRef.orderByChild("email").equalTo(email).once("value", function(snapshot) {
-    const users = snapshot.val();
-    if (users) {
-      const userId = Object.keys(users)[0];
-      const user = users[userId];
-      if (user.password === password) {
-        // Set loggedIn property in session
-        req.session.loggedIn = true;
-        // Successful login
-        res.send('success');
-      } else {
-        res.send('Incorrect password');
-      }
-    } else {
+
+  try {
+    // Get user by email
+    const userRecord = await admin.auth().getUserByEmail(email);
+     console.log(userRecord.email )
+    // Check if user exists
+    if (!userRecord)  {
       res.send('User not found');
+      return;
     }
-  });
+
+
+    // Set loggedIn property in session
+    req.session.loggedEmail = userRecord.email;
+    req.session.loggedIn = true;
+
+    // Successful login
+    res.send('success');
+  } catch (error) {
+    console.error("Error logging in:", error.code, error.message);
+    if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+      res.send('Incorrect email or password');
+    } else {
+      res.status(500).send('Error logging in: ' + error.message);
+    }
+  }
 });
-router.get('/Users',checkLoggedIn, (req, res) => {
-  console.log("HERE")
+router.get('/Users', checkLoggedIn, (req, res) => {
+  console.log(req.session.loggedEmail)
   
 
   console.log(globalAccessToken)
   const db = admin.database();
-  const usersRef = db.ref('users_Data2024-03-11_16-51-13');
-  // console.log(usersRef)
+  const usersRef = db.ref('zendesk/pdi-databeys/users_Data2024-03-25_12-35-46');
+  console.log(usersRef)
   usersRef.once('value', (snapshot) => {
     console.log("here2")
     const usersData = snapshot.val();
+    console.log(usersData)
 
     if (usersData) {
       // Convert the object of sub-objects into an array of objects
@@ -144,7 +146,7 @@ router.get('/Users',checkLoggedIn, (req, res) => {
 router.get('/tickets', checkLoggedIn,(req, res) => {
   console.log("HERE")
   const db = admin.database();
-  const usersRef = db.ref('tickets_Data2024-03-11_16-51-14');
+  const usersRef = db.ref('zendesk/pdi-databeys/tickets_Data2024-03-25_12-35-46');
   // console.log(usersRef)
   usersRef.once('value', (snapshot) => {
     console.log("here2")
@@ -164,10 +166,10 @@ router.get('/tickets', checkLoggedIn,(req, res) => {
     res.status(500).send('Internal Server Error');
   });
 });
-router.get('/organizations',checkLoggedIn, (req, res) => {
+router.get('/organizations', checkLoggedIn,(req, res) => {
   console.log("HERE")
   const db = admin.database();
-  const usersRef = db.ref('organizations_Data2024-03-11_16-51-12');
+  const usersRef = db.ref('zendesk/pdi-databeys/organizations_Data2024-03-25_12-35-46');
   // console.log(usersRef)
   usersRef.once('value', (snapshot) => {
     console.log("here2")
@@ -213,7 +215,7 @@ router.get('/organizations',checkLoggedIn, (req, res) => {
 router.get('/custom',checkLoggedIn, (req, res) => {
   console.log("HERE")
   const db = admin.database();
-  const usersRef = db.ref('custom_module_record2024-03-11_16-51-12');
+  const usersRef = db.ref('zendesk/pdi-databeys/custom_module-record2024-03-25_12-35-46');
   // console.log(usersRef)
   usersRef.once('value', (snapshot) => {
     console.log("here2")
@@ -233,7 +235,7 @@ router.get('/custom',checkLoggedIn, (req, res) => {
     res.status(500).send('Internal Server Error');
   });
 });
-router.post('/insertUser',checkLoggedIn, (req, res) => {
+router.post('/insertUser', checkLoggedIn,(req, res) => {
   console.log("HERE")
 
   const selectedData = req.body.selectedData;
@@ -309,7 +311,7 @@ router.post('/insertUser',checkLoggedIn, (req, res) => {
       // Perform your backend tasks here with each object's properties
       // For example, you can insert data into the database based on the properties
 });
-router.post('/insertModule',checkLoggedIn, (req, res) => {
+router.post('/insertModule', checkLoggedIn,(req, res) => {
   console.log("HERE Module")
 
   const selectedData = req.body;
@@ -355,7 +357,7 @@ router.post('/insertModule',checkLoggedIn, (req, res) => {
       // Perform your backend tasks here with each object's properties
       // For example, you can insert data into the database based on the properties
 });
-router.post('/insertOrganization',checkLoggedIn, (req, res) => {
+router.post('/insertOrganization', checkLoggedIn,(req, res) => {
   console.log("HERE Organization")
 
   const selectedData = req.body;
@@ -450,7 +452,7 @@ router.post('/insertTicket', checkLoggedIn,(req, res) => {
 
   res.send("Data received successfully."); 
 });
-router.post('/authentication', checkLoggedIn,(req, res) => {
+router.post('/authentication', (req, res) => {
   // Check if req.body is defined before accessing its properties
   if (req.body && req.body.encodedToken) {
       const encodedToken = req.body.encodedToken;
@@ -462,8 +464,11 @@ router.post('/authentication', checkLoggedIn,(req, res) => {
       const hostname = new URL(domain).hostname;
       const parts = hostname.split('.');
       const subdomain = parts[0];
+      const account = parts[1];
       console.log(encodedToken);
       console.log(subdomain);
+      console.log(account);
+      // return null
       var options = {
         'method': 'GET',
         'url': `${domain}/api/v2/tickets/`,
@@ -501,10 +506,10 @@ router.post('/authentication', checkLoggedIn,(req, res) => {
         }
       };
   const db = admin.database();
-  const usersCollection = db.ref(`${subdomain}/users_Data${getCurrentDateTimeString()}`);
-  const ticketsCollection = db.ref(`${subdomain}/tickets_Data${getCurrentDateTimeString()}`);
-  const organizationsCollection = db.ref(`${subdomain}/organizations_Data${getCurrentDateTimeString()}`);
-  const customCollections = db.ref(`${subdomain}/custom_module_record${getCurrentDateTimeString()}`);
+  const usersCollection = db.ref(`${account}/${subdomain}/users_Data${getCurrentDateTimeString()}`);
+  const ticketsCollection = db.ref(`${account}/${subdomain}/tickets_Data${getCurrentDateTimeString()}`);
+  const organizationsCollection = db.ref(`${account}/${subdomain}/organizations_Data${getCurrentDateTimeString()}`);
+  const customCollections = db.ref(`${account}/${subdomain}/custom_module_record${getCurrentDateTimeString()}`);
   // Start fetching data from the initial URL
   fetchDataUsers(options2.url, usersCollection);
   fetchDataTickets(options.url, ticketsCollection);  
@@ -700,10 +705,10 @@ else {
       res.status(400).json({ error: 'Bad Request: encodedToken is missing' });
   }
 });
-router.get('/allBackups',checkLoggedIn, async (req, res) => {
+router.get('/allBackups', checkLoggedIn, async (req, res) => {
   try {
     const db = admin.database();
-const ref = db.ref('/');
+const ref = db.ref('/zendesk/pdi-databeys');
 
 // Fetch data from Firebase
 const snapshot = await ref.once('value');
