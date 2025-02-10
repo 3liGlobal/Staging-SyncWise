@@ -1,0 +1,50 @@
+@import "assets/styles/fonts.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*:root {
+  font-family: 'Gilroy', sans-serif;
+}
+
+/* custom-scrollbar.css */
+.custom-scrollbar {
+  overflow: hidden;
+}
+.custom-scrollbar:hover {
+  /*overflow-y: scroll;*/
+}
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  background-color: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #D8D8FC;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+
+/* SidemenuItem icon colors on active and inactive */
+.text-active-color {
+  color: #4C2BBF; /* Active color */
+}
+
+.text-inactive-color {
+  color: #322E3D; /* Inactive color */
+}
+
+.text-primary-normal {
+  color: #4C2BBF;
+}
+
+/*.fill-available {*/
+/*  height: ;*/
+/*}*/

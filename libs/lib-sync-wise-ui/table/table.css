@@ -1,0 +1,61 @@
+.table-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.table-wrapper {
+  height: 100%;
+  overflow-y: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+  background-color: #F7F7F7;
+  z-index: 1;
+}
+
+tbody {
+  display: block;
+  overflow-y: scroll;
+  max-height: calc(100vh - 475px);
+}
+
+tbody tr {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+table th:first-child{
+  border-radius:4.59px 0 0 4.59px;
+}
+
+table th:last-child{
+  border-radius:0 4.59px 4.59px 0;
+}
+tbody td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+@media screen and (max-width: 640px) {
+  tbody {
+    display: block;
+    overflow-y: scroll;
+    max-height: calc(100vh - 420px);
+  }
+}
